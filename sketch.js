@@ -262,11 +262,11 @@ function reset(){
 }
 
 function spawnstone() {
-        if(frameCount % 520 === 0) {
+        if(frameCount % 400 === 0) {
            stone = createSprite(350,15,50,50);
           stone.addImage(stoneimg);
           stone.scale=0.4;
-          stone.velocityY = 3;
+          stone.velocityY = 4;
       
           //assign scale and lifetime to the car           
           stone.lifetime = 400 ; 
