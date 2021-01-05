@@ -204,14 +204,13 @@ function draw() {
   }
 
   if(mousePressedOver(pause)) {
-    pause.visible=false; 
-    play.visible=true;
+    pause.changeAnimation("playimg",playimg);
 }
 
-//if(mousePressedOver(play)) {
-//        pause.visible=true; 
-//        play.visible=false;
-//    }
+if(mousePressedOver(play)) {
+   play.changeAnimation("pauseimg",pauseimg);
+    }
+
 
   spawncars();
   spawncars2();
