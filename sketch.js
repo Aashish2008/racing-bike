@@ -57,7 +57,10 @@ var RESTART,GAMEOVER;
 var gameoverimg;
 
 //stone
-var stone,stoneimg;
+var stone,stoneimg,StoneGroup;
+
+//pause, play
+var pause, pauseimg, play, playimg;
 
 
 function preload(){
@@ -116,7 +119,13 @@ crashsnd = loadSound("sounds/crashsound.mp3")
 racesnd = loadSound("sounds/racesound.mp3")
 
 //stoneimg
-stoneimg - loadImage("images/Stone.jpg")
+stoneimg = loadImage("images/Stone.jpg")
+
+//pauseimg
+pauseimg = loadAnimation("images/pause.jpg")
+
+//playimg
+playimg = loadAnimation("images/play.jpg")
 }
 
 function setup() {
@@ -127,10 +136,21 @@ ground = createSprite(350,350,400,700);
   ground.addImage("ground",backgroundimg);
 
   //bike
-  bike = createSprite(250,320,50,50);
+  bike = createSprite(250,345,50,50);
   bike.addAnimation("bikeimg",bikeimg);
   bike.scale = 0.7;
- 
+
+   //play
+   play = createSprite(662,32,50,50);
+   play.addAnimation("play",playimg);
+   play.scale = 0.4;
+   play.visible=false;
+
+  //pause
+  pause = createSprite(662,32,50,50);
+  pause.addAnimation("pause",pauseimg);
+  pause.scale = 0.4;
+
   //rockstar
   rockstar = createSprite(40,45,50,50);
   rockstar.addImage("rockstar",rockstarimg);
@@ -150,10 +170,11 @@ ground = createSprite(350,350,400,700);
   score=0;
    CarsGroup = new Group();
    BoostGroup = new Group();
+   StoneGroup= new Group();
 }
 
 function draw() {
-        console.log(bike.y);      
+  //console.log(bike.y);      
   background(255);
   text("Score: "+ score, 350,350);
   if (gameState === PLAY){
@@ -161,7 +182,7 @@ function draw() {
   bike.velocityY = 0; 
 
   score = score + Math.round(getFrameRate()/60);
-  ground.velocityY = (6+5*score/150);
+  ground.velocityY = (6+1.2*score/150);
  
   if (ground.y > 700) {
    ground.y = 350
@@ -169,19 +190,28 @@ function draw() {
 
   // right arrow
    if(keyDown("RIGHT_ARROW")) {    
-    bike.velocityX = 5;
+    bike.velocityX = 8;
     }
  
   //left arrow
   if(keyDown("LEFT_ARROW")) {
-    bike.velocityX = -5;
+    bike.velocityX = -8;
   }
 
       
-  if (bike.x<100 || bike.x>615 || CarsGroup.isTouching(bike)) {     
-   gameState=END  
+  if (bike.x<120 || bike.x>580 || CarsGroup.isTouching(bike) || bike.isTouching(StoneGroup)){     
+   gameState=END ; 
   }
 
+  if(mousePressedOver(pause)) {
+    pause.visible=false; 
+    play.visible=true;
+}
+
+//if(mousePressedOver(play)) {
+//        pause.visible=true; 
+//        play.visible=false;
+//    }
 
   spawncars();
   spawncars2();
@@ -193,6 +223,8 @@ function draw() {
 else if (gameState==END){
         CarsGroup.setVelocityXEach(0);
         CarsGroup.setVelocityYEach(0);
+        StoneGroup.setVelocityYEach(0);
+        StoneGroup.destroyEach();
         CarsGroup.destroyEach();
         ground.velocityX=0;
         ground.velocityY=0;
@@ -220,6 +252,7 @@ function reset(){
   gameState = PLAY;  
   CarsGroup.setVelocityXEach(0);
   CarsGroup.setVelocityYEach(-6);
+ // StoneGroup.setVelocityYEach(0);
   ground.velocityY=6;
   bike.visible=true;
   bike.x = 250;
@@ -230,20 +263,22 @@ function reset(){
 }
 
 function spawnstone() {
-        if(frameCount % 100 === 0) {
-           stone = createSprite(700,320,50,50);
-         stone.addImage(stoneimg);
-          stone.velocityY = -(6)
+        if(frameCount % 520 === 0) {
+           stone = createSprite(350,15,50,50);
+          stone.addImage(stoneimg);
+          stone.scale=0.4;
+          stone.velocityY = 3;
       
           //assign scale and lifetime to the car           
-          stone.lifetime = 300        }
+          stone.lifetime = 400 ; 
+        StoneGroup.add(stone);      }
       }
 
 function spawncars() {
-  if(frameCount % 100 === 0) {
+  if(frameCount % 130 === 0) {
      car = createSprite(180,700,10,40);
 
-    car.velocityY = -(6+5*score/200);
+    car.velocityY = -(6+3*score/200);
       car.scale = 1.2;
    
                                                                                     
@@ -275,9 +310,9 @@ function spawncars() {
 }
 
 function spawncars2() {
-  if(frameCount % 200 === 0) {
+  if(frameCount % 180 === 0) {
      car = createSprite(280,700,10,40);
-    car.velocityY = -(6+5*score/200);
+    car.velocityY = -(6+3*score/200);
       car.scale = 1.2;
                                                                                     
     //generate random cars
@@ -308,9 +343,9 @@ function spawncars2() {
 }
 
 function spawncars3() {
-  if(frameCount % 300 === 0) {
+  if(frameCount % 250 === 0) {
      car = createSprite(420,700,10,40);
-    car.velocityY = -(6+5*score/200);
+    car.velocityY = -(6+3*score/200);
       car.scale = 1.2;
                                                                                     
     //generate random cars
@@ -341,9 +376,9 @@ function spawncars3() {
 }
 
 function spawncars4() {
-  if(frameCount % 400 === 0) {
+  if(frameCount % 320 === 0) {
      car = createSprite(520,700,10,40);
-    car.velocityY = -(6+5*score/200);
+    car.velocityY = -(6+3*score/200);
       car.scale = 1.2;
                                                                                     
     //generate random cars
