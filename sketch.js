@@ -47,8 +47,8 @@ var boomimg,boom;
 //crashsound
 var crashsnd;
 
-//racesound
-var racesnd;
+//scoresnd
+var scoresnd;
 
 //gameend
 var RESTART,GAMEOVER;
@@ -113,10 +113,7 @@ restartimg = loadImage("images/restartimg.jpg")
 gameoverimg = loadImage("images/gameover.jpg")
 
 //crashsound
-crashsnd = loadSound("sounds/crashsound.mp3")
-
-//racesound
-racesnd = loadSound("sounds/racesound.mp3")
+crashsnd = loadSound("sounds/crash.mp3")
 
 //stoneimg
 stoneimg = loadImage("images/Stone.jpg")
@@ -126,6 +123,9 @@ pauseimg = loadAnimation("images/pause.jpg")
 
 //playimg
 playimg = loadAnimation("images/play.jpg")
+
+//scoresnd
+scoresnd = loadSound("sounds/score.mp3")
 }
 
 function setup() {
@@ -174,7 +174,7 @@ ground = createSprite(350,350,400,700);
 }
 
 function draw() {
-  //console.log(bike.y);      
+
   background(255);
   text("Score: "+ score, 350,350);
   if (gameState === PLAY){
@@ -182,7 +182,16 @@ function draw() {
   bike.velocityY = 0; 
 
   score = score + Math.round(getFrameRate()/60);
-  ground.velocityY = (6+1.2*score/150);
+  ground.velocityY = (6+2*score/150);
+
+  if (score%150 === 0)
+    {
+      scoresnd.play();
+    } 
+
+    if (score === 0){
+            scoresnd.stop();
+    }
  
   if (ground.y > 700) {
    ground.y = 350
@@ -203,6 +212,7 @@ function draw() {
    gameState=END; 
    pause.visible=false;
    play.visible=false;
+   crashsnd.play();
   }
 
   if(mousePressedOver(pause)) {
