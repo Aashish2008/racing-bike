@@ -190,17 +190,19 @@ function draw() {
 
   // right arrow
    if(keyDown("RIGHT_ARROW")) {    
-    bike.velocityX = 8;
+    bike.velocityX = 10;
     }
  
   //left arrow
   if(keyDown("LEFT_ARROW")) {
-    bike.velocityX = -8;
+    bike.velocityX = -10;
   }
 
       
   if (bike.x<120 || bike.x>580 || CarsGroup.isTouching(bike) || bike.isTouching(StoneGroup)){     
-   gameState=END ; 
+   gameState=END; 
+   pause.visible=false;
+   play.visible=false;
   }
 
   if(mousePressedOver(pause)) {
@@ -251,21 +253,22 @@ function reset(){
   gameState = PLAY;  
   CarsGroup.setVelocityXEach(0);
   CarsGroup.setVelocityYEach(-6);
- // StoneGroup.setVelocityYEach(0);
   ground.velocityY=6;
   bike.visible=true;
   bike.x = 250;
   bike.y = 320;
   GAMEOVER.visible=false;
   RESTART.visible=false;
+  pause.visible=true;
+  play.visible=true;
   score=0;
 }
 
 function spawnstone() {
-        if(frameCount % 400 === 0) {
+        if(frameCount % 350 === 0) {
            stone = createSprite(350,15,50,50);
           stone.addImage(stoneimg);
-          stone.scale=0.4;
+          stone.scale=0.5;
           stone.velocityY = 4;
       
           //assign scale and lifetime to the car           
@@ -274,10 +277,10 @@ function spawnstone() {
       }
 
 function spawncars() {
-  if(frameCount % 130 === 0) {
+  if(frameCount % 50 === 0) {
      car = createSprite(180,700,10,40);
 
-    car.velocityY = -(6+3*score/200);
+    car.velocityY = -(9+3*score/150);
       car.scale = 1.2;
    
                                                                                     
@@ -309,9 +312,9 @@ function spawncars() {
 }
 
 function spawncars2() {
-  if(frameCount % 180 === 0) {
+  if(frameCount % 110 === 0) {
      car = createSprite(280,700,10,40);
-    car.velocityY = -(6+3*score/200);
+    car.velocityY = -(8+3*score/150);
       car.scale = 1.2;
                                                                                     
     //generate random cars
@@ -342,9 +345,9 @@ function spawncars2() {
 }
 
 function spawncars3() {
-  if(frameCount % 250 === 0) {
+  if(frameCount % 250  === 0) {
      car = createSprite(420,700,10,40);
-    car.velocityY = -(6+3*score/200);
+    car.velocityY = -(9+3*score/150);
       car.scale = 1.2;
                                                                                     
     //generate random cars
@@ -375,9 +378,9 @@ function spawncars3() {
 }
 
 function spawncars4() {
-  if(frameCount % 320 === 0) {
+  if(frameCount % 180 === 0) {
      car = createSprite(520,700,10,40);
-    car.velocityY = -(6+3*score/200);
+    car.velocityY = -(8+3*score/150);
       car.scale = 1.2;
                                                                                     
     //generate random cars
