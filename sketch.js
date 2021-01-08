@@ -244,10 +244,11 @@ else if (gameState==END){
         score=0;
 }
 
-if(mousePressedOver(RESTART)) {
+if(mousePressedOver(RESTART) && gameState === END) {
         gameState = PLAY;
         reset();
 }
+
 
 
 drawSprites();
