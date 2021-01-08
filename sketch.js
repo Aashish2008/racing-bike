@@ -183,9 +183,9 @@ function draw() {
   score = score + Math.round(getFrameRate()/60);
   ground.velocityY = (6+2*score/150);
 
-  if (score%150 === 0)
-    {
+  if (score%150 === 0){
       scoresnd.play();
+
     } 
 
     if (score === 0){
@@ -289,7 +289,7 @@ function spawncars() {
   if(frameCount % 50 === 0) {
      car = createSprite(180,700,10,40);
 
-    car.velocityY = -(9+5*score/150);
+    car.velocityY = -(9+4*score/150);
       car.scale = 1.2;
    
                                                                                     
@@ -323,7 +323,7 @@ function spawncars() {
 function spawncars2() {
   if(frameCount % 110 === 0) {
      car = createSprite(280,700,10,40);
-    car.velocityY = -(8+5*score/150);
+    car.velocityY = -(8+4*score/150);
       car.scale = 1.2;
                                                                                     
     //generate random cars
@@ -356,7 +356,7 @@ function spawncars2() {
 function spawncars3() {
   if(frameCount % 250  === 0) {
      car = createSprite(420,700,10,40);
-    car.velocityY = -(9+5*score/150);
+    car.velocityY = -(9+4*score/150);
       car.scale = 1.2;
                                                                                     
     //generate random cars
@@ -389,7 +389,7 @@ function spawncars3() {
 function spawncars4() {
   if(frameCount % 180 === 0) {
      car = createSprite(520,700,10,40);
-    car.velocityY = -(8+5*score/150);
+    car.velocityY = -(8+4*score/150);
       car.scale = 1.2;
                                                                                     
     //generate random cars
