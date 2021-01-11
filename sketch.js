@@ -59,9 +59,6 @@ var gameoverimg;
 //stone
 var stone,stoneimg,StoneGroup;
 
-//pause, play
-var pause, pauseimg, play, playimg;
-
 
 function preload(){
 //backgroundimg
@@ -118,12 +115,6 @@ crashsnd = loadSound("sounds/crash.mp3")
 //stoneimg
 stoneimg = loadImage("images/Stone.jpg")
 
-//pauseimg
-pauseimg = loadAnimation("images/pause.jpg")
-
-//playimg
-playimg = loadAnimation("images/play.jpg")
-
 //scoresnd
 scoresnd = loadSound("sounds/score.mp3")
 }
@@ -139,17 +130,6 @@ ground = createSprite(350,350,400,700);
   bike = createSprite(250,320,50,50);
   bike.addAnimation("bikeimg",bikeimg);
   bike.scale = 0.6;
-
-   //play
-   play = createSprite(662,32,50,50);
-   play.addAnimation("play",playimg);
-   play.scale = 0.4;
-   play.visible=false;
-
-  //pause
-  pause = createSprite(662,32,50,50);
-  pause.addAnimation("pause",pauseimg);
-  pause.scale = 0.4;
 
   //rockstar
   rockstar = createSprite(40,45,50,50);
@@ -192,11 +172,6 @@ function draw() {
     if (score === 0){
             scoresnd.stop();
     }
-
-    if (score > 600){
-            bike.velocityX = 13;
-            bike.velocityX = -13;
-    }
  
   if (ground.y > 700) {
    ground.y = 350
@@ -215,18 +190,8 @@ function draw() {
       
   if (bike.x<120 || bike.x>580 || CarsGroup.isTouching(bike) || bike.isTouching(StoneGroup)){     
    gameState=END; 
-   pause.visible=false;
-   play.visible=false;
    crashsnd.play();
   }
-
-  if(mousePressedOver(pause)) {
-    pause.changeAnimation("playimg",playimg);
-}
-
-if(mousePressedOver(play)) {
-   play.changeAnimation("pauseimg",pauseimg);
-    }
 
 
   spawncars();
@@ -275,8 +240,6 @@ function reset(){
   bike.y = 320;
   GAMEOVER.visible=false;
   RESTART.visible=false;
-  pause.visible=true;
-  play.visible=true;
   score=0;
 }
 
