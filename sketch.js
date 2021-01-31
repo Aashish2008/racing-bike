@@ -59,6 +59,13 @@ var gameoverimg;
 //stone
 var stone,stoneimg,StoneGroup;
 
+//pause,play
+var pause,play,button;
+
+var pauseimg,playimg;
+
+var playing;
+
 
 function preload(){
 //backgroundimg
@@ -117,6 +124,14 @@ stoneimg = loadImage("images/Stone.jpg")
 
 //scoresnd
 scoresnd = loadSound("sounds/score.mp3")
+
+playing = loadSound("sounds/playing.mp3")
+
+//pauseimg
+pauseimg = loadImge("images/pause.jpg")
+
+//playimg
+playimg = loadImge("images/play.jpg")
 }
 
 function setup() {
@@ -145,6 +160,10 @@ ground = createSprite(350,350,400,700);
   GAMEOVER.addImage("gameover",gameoverimg);
   GAMEOVER.scale=0.9;
   GAMEOVER.visible=false;
+
+  button = createButton("PLAY");
+  button.mousePressed(togglePlaying);
+  button.position(1020,10);
 
 
   score=0;
@@ -241,6 +260,18 @@ function reset(){
   GAMEOVER.visible=false;
   RESTART.visible=false;
   score=0;
+}
+
+function togglePlaying(){
+        if(!playing.isPlaying()){
+                playing.play();
+                playing.setVolume(0.5);
+                button.html("PAUSE");
+        }
+        else{
+                playing.pause();
+                button.html("PLAY");
+        }
 }
 
 function spawnstone() {
