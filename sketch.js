@@ -161,9 +161,9 @@ ground = createSprite(350,350,400,700);
   GAMEOVER.scale=0.9;
   GAMEOVER.visible=false;
 
-  button = createButton("PLAY");
-  button.mousePressed(togglePlaying);
-  button.position(1020,10);
+  //button = createButton("PLAY");
+  //button.mousePressed(togglePlaying);
+  //button.position(1020,10);
 
 
   score=0;
