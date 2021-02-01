@@ -174,8 +174,7 @@ ground = createSprite(350,350,400,700);
 
 function draw() {
   background(255);
-  text("Score: "+ score, 350,350);
-
+  
   if (gameState === PLAY){
   bike.velocityX = 0;
   bike.velocityY = 0; 
@@ -243,8 +242,9 @@ if(mousePressedOver(RESTART) && gameState === END) {
       
 
 drawSprites();
-textSize(40);
-fill ("green")
+textSize(30);
+  textFont(20);
+  fill ("yellow")
 text("SCORE:"+score,90,55)
 
 }
